@@ -1,0 +1,27 @@
+# Template file for 'opentrack'
+pkgname=opentrack
+version=2022.3.2
+revision=1
+#archs="i686 x86_64"
+#wrksrc=
+#create_wrksrc=yes
+build_style=cmake
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="git pkgconf"
+makedepends="qt5-devel libopencv-devel procps-ng-devel qt5-tools-devel"
+depends=""
+short_desc="Head tracking software for MS Windows, Linux, and Apple OSX"
+maintainer="Chloris <chloris@freedommail.ch>"
+license="custom:opentrack"
+homepage="http://github.com/opentrack/opentrack"
+#changelog=""
+distfiles="https://github.com/opentrack/opentrack/archive/refs/tags/${pkgname}-${version}.tar.gz"
+checksum=745e584c7755b32e542157a6259b1f33e83d9b735edc4038a6be7a1516c18e51
+
+post_install() {
+    vinstall "${FILESDIR}/${pkgname}.desktop" 644 'usr/share/applications'
+}

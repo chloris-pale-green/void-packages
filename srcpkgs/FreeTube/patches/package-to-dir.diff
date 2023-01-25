@@ -1,19 +1,19 @@
---- a/_scripts/build.js	2022-08-12 04:09:42.000000000 +0200
-+++ b/_scripts/build.js	2022-08-31 21:06:38.025503775 +0200
-@@ -33,7 +33,7 @@
+--- a/_scripts/build.js	2023-01-25 11:08:56.951389599 +0100
++++ b/_scripts/build.js	2023-01-25 11:10:02.062189054 +0100
+@@ -36,7 +36,7 @@
      arch = Arch.armv7l
    }
  
--  targets = Platform.LINUX.createTarget(['deb', 'zip', 'apk', 'rpm', 'AppImage', 'pacman'], arch)
+-  targets = Platform.LINUX.createTarget(['deb', 'zip', '7z', 'apk', 'rpm', 'AppImage', 'pacman'], arch)
 +  targets = Platform.LINUX.createTarget(['dir'], arch)
  }
  
  const config = {
-@@ -97,7 +97,7 @@
+@@ -92,7 +92,7 @@
    linux: {
      category: 'Network',
      icon: '_icons/icon.svg',
--    target: ['deb', 'zip', 'apk', 'rpm', 'AppImage', 'pacman'],
+-    target: ['deb', 'zip', '7z', 'apk', 'rpm', 'AppImage', 'pacman'],
 +    target: ['dir'],
    },
    // See the following issues for more information

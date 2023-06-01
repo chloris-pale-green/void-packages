@@ -1,0 +1,50 @@
+# Template file for 'jami-daemon'
+pkgname=jami-daemon
+version=20230601
+revision=1
+_jamid_commit='c83a4270014c50c0250310a55f60c8fad08372e9'
+_pjproject_commit='e4b83585a0bdf1523e808a4fc1946ec82ac733d0'
+build_style=gnu-configure
+configure_args="--without-natpmp"
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="autoconf automake libtool pkg-config tar which"
+makedepends="alsa-lib-devel asio dbus-devel libargon2-devel
+ libbitcoin-secp256k1-devel libdbus-c++-devel libupnp-devel eudev-libudev-devel
+ ffmpeg-devel fmt-devel gnutls-devel libarchive-devel libgit2-devel jsoncpp-devel
+ msgpack-cxx opendht-devel pulseaudio-devel speex-devel
+ webrtc-audio-processing-devel yaml-cpp-devel zlib-devel"
+depends=""
+short_desc="End-to-end encrypted communication platform (daemon component)"
+maintainer="Chloris <chloris@freedommail.ch>"
+license="GPL-3.0-or-later"
+homepage="https://jami.net/"
+changelog="https://git.jami.net/savoirfairelinux/jami-daemon/-/blob/master/NEWS"
+distfiles="https://git.jami.net/savoirfairelinux/${pkgname}/-/archive/${_jamid_commit}/${pkgname}-${_jamid_commit}.tar.gz
+https://github.com/savoirfairelinux/pjproject/archive/${_pjproject_commit}/pjproject-${_pjproject_commit}.tar.gz"
+skip_extraction="pjproject-${_pjproject_commit}.tar.gz"
+checksum="d82b64dd05da48c60e438edcefff71fd529e3bab58ca4a4bb9e5b965cc1ac3e6
+ dc47182c82e58883a2debd0b3d20e89a33d517a63a2817877b3620578ca1e689"
+
+# Compile dependencies in a separate step so the result is not lost if
+# pre_configure() fails
+post_patch() {
+    _pjp_distfile="$XBPS_SRCDISTDIR/${pkgname}-${version}/pjproject-${_pjproject_commit}.tar.gz"
+    cp "$_pjp_distfile" contrib/tarballs
+
+    #git cherry-pick -n 315b5fbf546712f22a7b03ca750257bc92263a91 # Support opendht 2.5
+    
+	mkdir -p contrib/native && cd contrib/native
+	../bootstrap \
+        --disable-downloads \
+        --disable-all \
+        --enable-pjproject
+	make DEPS_pjproject=
+}
+
+pre_configure() {
+    cd "$wrksrc"
+    ./autogen.sh
+}

@@ -1,0 +1,28 @@
+# Template file for 'restinio'
+pkgname=restinio
+version=0.6.17
+revision=1
+build_style=cmake
+build_wrksrc=dev
+configure_args="
+	-DRESTINIO_FIND_DEPS=ON \
+	-DRESTINIO_TEST=OFF \
+	-DRESTINIO_SAMPLE=OFF \
+	-DRESTINIO_INSTALL_SAMPLES=OFF \
+	-DRESTINIO_BENCH=OFF \
+	-DRESTINIO_INSTALL_BENCHES=OFF \
+	-DRESTINIO_ALLOW_SOBJECTIZER=OFF \
+	-DRESTINIO_USE_EXTERNAL_HTTP_PARSER=ON \
+"
+makedepends="asio http-parser-devel fmt-devel pcre2-devel zlib-devel openssl-devel"
+short_desc="Header-only C++14 library for embedded HTTP/Websocket server"
+maintainer="Chloris <chloris@freedommail.ch>"
+license="BSD-3-Clause"
+homepage="https://stiffstream.com/en/products/restinio.html"
+distfiles="https://github.com/Stiffstream/restinio/releases/download/v.${version}/${pkgname}-${version}.tar.bz2"
+checksum=cea0c46906196e97c30b2bfefbfd49578c9f870a89501d7ce5cd39bbd376142a
+
+post_install() {
+	cd "$wrksrc"
+	vlicense LICENSE
+}

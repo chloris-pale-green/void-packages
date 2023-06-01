@@ -1,21 +1,23 @@
 # Template file for 'jami-daemon'
 pkgname=jami-daemon
-version=20230601
+version=20230306
 revision=1
-_jamid_commit='c83a4270014c50c0250310a55f60c8fad08372e9'
+# The last commit before the project moved to FFmpeg 6
+_jamid_commit='3ad466e3c7a1a4fbe9f8e9b34477608fc3de0f08'
 _pjproject_commit='e4b83585a0bdf1523e808a4fc1946ec82ac733d0'
 build_style=gnu-configure
-configure_args="--without-natpmp"
+# sdbus and libnatpmp are not in Void repos
+configure_args="--without-dbus --without-natpmp"
 #make_build_args=""
 #make_install_args=""
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="autoconf automake libtool pkg-config tar which"
-makedepends="alsa-lib-devel asio dbus-devel libargon2-devel
- libbitcoin-secp256k1-devel libdbus-c++-devel libupnp-devel eudev-libudev-devel
- ffmpeg-devel fmt-devel gnutls-devel libarchive-devel libgit2-devel jsoncpp-devel
- msgpack-cxx opendht-devel pulseaudio-devel speex-devel
- webrtc-audio-processing-devel yaml-cpp-devel zlib-devel"
+makedepends="alsa-lib-devel asio libargon2-devel libbitcoin-secp256k1-devel
+ libupnp-devel eudev-libudev-devel ffmpeg-devel fmt-devel gnutls-devel
+ libarchive-devel libgit2-devel jsoncpp-devel msgpack-cxx opendht-devel
+ pulseaudio-devel speex-devel webrtc-audio-processing-devel yaml-cpp-devel
+ zlib-devel"
 depends=""
 short_desc="End-to-end encrypted communication platform (daemon component)"
 maintainer="Chloris <chloris@freedommail.ch>"
@@ -23,9 +25,9 @@ license="GPL-3.0-or-later"
 homepage="https://jami.net/"
 changelog="https://git.jami.net/savoirfairelinux/jami-daemon/-/blob/master/NEWS"
 distfiles="https://git.jami.net/savoirfairelinux/${pkgname}/-/archive/${_jamid_commit}/${pkgname}-${_jamid_commit}.tar.gz
-https://github.com/savoirfairelinux/pjproject/archive/${_pjproject_commit}/pjproject-${_pjproject_commit}.tar.gz"
+ https://github.com/savoirfairelinux/pjproject/archive/${_pjproject_commit}/pjproject-${_pjproject_commit}.tar.gz"
 skip_extraction="pjproject-${_pjproject_commit}.tar.gz"
-checksum="d82b64dd05da48c60e438edcefff71fd529e3bab58ca4a4bb9e5b965cc1ac3e6
+checksum="6a0ae283802c42de9b9a0ed73436157d3e72d5dea661b1788ca43152e52f91a9
  dc47182c82e58883a2debd0b3d20e89a33d517a63a2817877b3620578ca1e689"
 
 # Compile dependencies in a separate step so the result is not lost if
